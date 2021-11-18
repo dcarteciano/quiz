@@ -15,3 +15,9 @@ body {
 .hide {
     display: none;
 }
+.correct {
+    background-color: green;
+}
+.wrong {
+    background-color: red;
+}

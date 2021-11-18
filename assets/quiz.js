@@ -4,7 +4,7 @@ var quizContainer = document.getElementById('quiz');
 // function to create the time for the quiz
 function timer() {
 // variable to declare starting time on the clock
-    var timeLeft = 45;
+    var timeLeft = 5;
     var timeText = "Time: ";
 // check to see if timeLeft = 0, if not then will decrease time left by 1 every second.
     var timeInterval = setInterval(function() {
@@ -18,34 +18,41 @@ function timer() {
         }
         }, 1000);
 }
-//timer();
 
 
-// function to submiz quiz when timer reaches 0
-function submitQuiz() {
-    document.location.href = "./highscores.html";
-}
+
 
 var startButton = document.getElementById('start-btn');
 var nextButton = document.getElementById('next-btn');
+var submitButton = document.getElementById('submit-btn');
 var questionContainerEl = document.getElementById('question-container');
 var questionEl = document.getElementById('question');
 var answerButtonEl = document.getElementById('answer-buttons');
 var shuffledQuestions, currentQuestionsIndex
+var quizText = document.getElementById('quiz-text');
+var scoreEl = document.getElementById('score');
+var correctEl = document.getElementById('correct-text')
+var highscoreSubmitEl = document.getElementById('highscore-input')
+var score = 0;
+
 
 startButton.addEventListener('click', startQuiz)
 nextButton.addEventListener('click', () => {
     currentQuestionsIndex++
     setNextQuestion()
+    removeText()
 })
+submitButton.addEventListener('click', submitQuiz)
 
 // starts the quiz after the start button is pressed
 function startQuiz() {
     startButton.classList.add('hide')
+    quizText.classList.add('hide');
     shuffledQuestions = myQuestions.sort(() => Math.random() -.5)
     currentQuestionsIndex = 0;
     questionContainerEl.classList.remove('hide')
     setNextQuestion()
+    timer();
 }
 
 function setNextQuestion() {
@@ -64,10 +71,13 @@ function showQuestion(question) {
         }
         button.addEventListener('click', selectAnswer)
         answerButtonEl.appendChild(button)
+        
     })
+
 }
 // resets the state of the quiz after every question
 function resetState() {
+
     nextButton.classList.add('hide');
     while (answerButtonEl.firstChild) {
         answerButtonEl.removeChild (answerButtonEl.firstChild)
@@ -79,31 +89,56 @@ function selectAnswer(e) {
     var correct = selectedButton.dataset.correct;
     setStatusClass(document.body, correct);
 
+
     if (shuffledQuestions.length > currentQuestionsIndex + 1) {
         nextButton.classList.remove('hide');
     }
     else {
-        startButton.innerText = 'Submit'
-        startButton.classList.remove('hide');
+        submitButton.classList.remove('hide');
     }
-    console.log(correct)
-
 }
 
+// displays if the answer was right or wrong 
 function setStatusClass(element, correct) {
-    clearStatusClass(element)
     if (correct) {
-        element.classList.add('correct')
+
+        quizScore(correct)
+
     }
     else {
-        element.classList.add('wrong')
+        createText(correct)
     }
 }
-
-function clearStatusClass (element) {
-    element.classList.remove('correct')
-    element.classList.remove('wrong')
+// function that adds the score of the quiz
+function quizScore(correct) {
+    createText(correct)
+    if (correct === "true") {
+        score++;
+    }
 }
+function createText(correct) {
+    correctEl.classList.remove('hide')
+    if (correct === "true") {
+        correctEl.innerHTML = "Correct!"
+    }
+    else {
+        correctEl.innerHTML = "Wrong!"
+    };
+};
+function removeText() {
+    correctEl.classList.add('hide')
+}
+// function to submiz quiz when timer reaches 0
+function submitQuiz() {
+    questionContainerEl.classList.add('hide')
+    submitButton.classList.add('hide')
+    scoreEl.innerText = "Final Score: " + (score * 20) + "%";
+    correctEl.classList.add('hide')
+    highscoreSubmitEl.classList.remove('hide')
+}
+
+
+
 // Array to hold the questions and if they are correct or not
 var myQuestions = [
         {

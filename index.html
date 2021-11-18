@@ -19,10 +19,11 @@
     <section>
         <div>
             <h1>NBA Quiz Challenge!</h1>
-            <p>
+            <p id="quiz-text">
             Try to answer the following questions about the 2021-2022 NBA Season
             within the time limit! Wrong answers will affect your score. Good luck!
             </p>
+            <p id="score"></p>
             <div class="container">
                 <div id="question-container" class="hide">
                     <div id="question">Question</div>
@@ -34,10 +35,16 @@
                     </div>
                 </div>
             </div>
-
+            <p id="correct-text"></p>
+            <div id ="highscore-input" class="hide"> 
+                <p>Enter your initials!</p>
+                <input type="text">
+                <button>Submit</button>
+            </div>
                 <div class="controls">
                     <button id="start-btn" class="start-btn btn">Start Quiz!</button>
                     <button id="next-btn" class="next-btn btn">Next</button>
+                    <button id="submit-btn" class="hide">Submit</button>
                 </div>
             <script src="./assets/quiz.js"></script>
 
