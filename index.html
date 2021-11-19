@@ -9,14 +9,14 @@
     
 </head>
 <body>
-    <section>
+    <section class = "header">
         <a href="./highscores.html" id="hs">View Highscores</a>
         <p id="timer"></p>
         <div>
 
         </div>
     </section>
-    <section>
+    <section class="main-quiz">
         <div>
             <h1>NBA Quiz Challenge!</h1>
             <p id="quiz-text">
@@ -38,8 +38,8 @@
             <p id="correct-text"></p>
             <div id ="highscore-input" class="hide"> 
                 <p>Enter your initials!</p>
-                <input type="text">
-                <button>Submit</button>
+                <input type="text" id="initials">
+                <button id="submit-score" onclick="saveInitials()">Submit</button>
             </div>
                 <div class="controls">
                     <button id="start-btn" class="start-btn btn">Start Quiz!</button>

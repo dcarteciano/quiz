@@ -4,7 +4,7 @@ var quizContainer = document.getElementById('quiz');
 // function to create the time for the quiz
 function timer() {
 // variable to declare starting time on the clock
-    var timeLeft = 5;
+    var timeLeft = 45;
     var timeText = "Time: ";
 // check to see if timeLeft = 0, if not then will decrease time left by 1 every second.
     var timeInterval = setInterval(function() {
@@ -18,10 +18,6 @@ function timer() {
         }
         }, 1000);
 }
-
-
-
-
 var startButton = document.getElementById('start-btn');
 var nextButton = document.getElementById('next-btn');
 var submitButton = document.getElementById('submit-btn');
@@ -31,8 +27,9 @@ var answerButtonEl = document.getElementById('answer-buttons');
 var shuffledQuestions, currentQuestionsIndex
 var quizText = document.getElementById('quiz-text');
 var scoreEl = document.getElementById('score');
-var correctEl = document.getElementById('correct-text')
-var highscoreSubmitEl = document.getElementById('highscore-input')
+var correctEl = document.getElementById('correct-text');
+var highscoreSubmitEl = document.getElementById('highscore-input');
+var submitScoreButtonEl = document.getElementById('submit-score');
 var score = 0;
 
 
@@ -43,6 +40,14 @@ nextButton.addEventListener('click', () => {
     removeText()
 })
 submitButton.addEventListener('click', submitQuiz)
+
+
+
+function saveInitials() {
+var initialsEl = document.getElementById('initials').value;
+    localStorage.setItem("initials", initialsEl);
+    window.location.href = "./highscores.html";
+}
 
 // starts the quiz after the start button is pressed
 function startQuiz() {
@@ -132,9 +137,13 @@ function removeText() {
 function submitQuiz() {
     questionContainerEl.classList.add('hide')
     submitButton.classList.add('hide')
-    scoreEl.innerText = "Final Score: " + (score * 20) + "%";
+    var percentScore = score * 20; 
+    scoreEl.innerText = "Final Score: " + percentScore + "%";
     correctEl.classList.add('hide')
     highscoreSubmitEl.classList.remove('hide')
+    var savedScores = percentScore
+    
+    localStorage.setItem("highscores", JSON.stringify(savedScores));
 }
 
 
