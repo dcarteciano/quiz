@@ -40,7 +40,7 @@ nextButton.addEventListener('click', () => {
     removeText()
 })
 submitButton.addEventListener('click', submitQuiz)
-
+submitScoreButtonEl.addEventListener('click', saveInitials)
 
 
 function saveInitials() {
